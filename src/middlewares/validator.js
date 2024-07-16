@@ -1,5 +1,6 @@
-const { isEmail, isStrongPassword } = require("validator");
+const { isStrongPassword } = require("validator");
 const { user: UserModel } = require("../models");
+const { isValidEmail } = require("../utils/validator");
 
 /**
  * @param {import("express").Request} req
@@ -18,7 +19,7 @@ const validateRegister = async (req, res, next) => {
     });
   }
 
-  if (!isEmail(email)) {
+  if (!isValidEmail(email)) {
     return res.status(400).send({
       message: "Invalid email",
       data: null,
@@ -67,7 +68,7 @@ const validateLogin = (req, res, next) => {
     });
   }
 
-  if (!isEmail(email)) {
+  if (!isValidEmail(email)) {
     return res.status(400).send({
       message: "Invalid email",
       data: null,
